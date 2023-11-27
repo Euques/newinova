@@ -26,7 +26,7 @@
         import { getDatabase } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js';
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js';
         
-        var firebaseConfig = {
+        const firebaseConfig = {
             apiKey: "AIzaSyCLEyAd_4-2n2ID0xTjwS1ouip9G9C6JDs",
             authDomain: "blacknight-600de.firebaseapp.com",
             databaseURL: "https://blacknight-600de.firebaseio.com",
@@ -37,7 +37,7 @@
             measurementId: "G-559VYPVJ5Q"
         };
 
-        firebase.initializeApp(firebaseConfig);
+         const app = initializeApp(firebaseConfig);
 
         const cliente = "inova";
         const eventCardList = document.getElementById("eventCardList");
