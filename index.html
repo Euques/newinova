@@ -21,7 +21,8 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 
     <script>
-   var firebaseConfig = {
+        var firebaseConfig = {
+              var firebaseConfig = {
 apiKey: "AIzaSyCNSzDh0tC80lhoFewOCCWFgF4ec2tCqQQ",
 authDomain: "inovabarapp.firebaseapp.com",
 databaseURL: "https://inovabarapp-default-rtdb.firebaseio.com",
@@ -29,57 +30,58 @@ projectId: "inovabarapp",
 storageBucket: "inovabarapp.appspot.com",
 messagingSenderId: "341811259005",
 appId: "1:341811259005:web:55cbc721257b0b2ff63314",
-
-};
+        };
 
         firebase.initializeApp(firebaseConfig);
 
         const cliente = "inova";
         const eventCardList = document.getElementById("eventCardList");
-        
+
         function listEvents() {
             const eventosRef = firebase.database().ref(`${cliente}/eventos`);
             eventosRef.orderByChild("data").on("value", (snapshot) => {
                 eventCardList.innerHTML = "";
 
                 snapshot.forEach((childSnapshot) => {
-                    const evento = childSnapshot.val();
+                    try {
+                        const evento = childSnapshot.val();
 
-                    if (evento.data >= Date.now()) {
-                        const card = document.createElement("div");
-                        card.classList.add("card", "col-md-4", "col-sm-6", "mb-4");
-                        const eventDate = new Date(evento.data);
-                        const dayOfWeek = eventDate.toLocaleDateString('pt-BR', { weekday: 'long' });
-                        const formattedDate = eventDate.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+                        if (evento.data >= Date.now()) {
+                            const card = document.createElement("div");
+                            card.classList.add("card", "col-md-4", "col-sm-6", "mb-4");
 
-                        card.innerHTML = `
-                            <img src="${evento.foto}" class="card-img-top" alt="Flyer do Evento">
-                            <div class="card-body">
-                                <h5 class="card-title">${evento.descricao}</h5>
-                                <p class="card-day">${dayOfWeek}</p>
-                                <p class="card-text">Dia: ${formattedDate}</p>
-                                <p class="card-time">Hora: ${eventDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                                <p class="card-text">Promoção: ${evento.promocao}</p>
-                                <p class="card-text">Regra: ${evento.regra}</p>
-                        `;
+                            const eventDate = new Date(evento.data);
+                            const dayOfWeek = eventDate.toLocaleDateString('pt-BR', { weekday: 'long' });
+                            const formattedDate = eventDate.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
 
-                        // Verifique se a chave "link" não está vazia
-                        if (evento.link && evento.link.trim() !== "") {
-                            // Adicione uma linha horizontal para separar o botão
-                            const hr = document.createElement("hr");
-                            card.querySelector(".card-body").appendChild(hr);
+                            card.innerHTML = `
+                                <img src="${evento.foto}" class="card-img-top" alt="Flyer do Evento">
+                                <div class="card-body">
+                                    <h5 class="card-title">${evento.descricao}</h5>
+                                    <p class="card-day">${dayOfWeek}</p>
+                                    <p class="card-text">Dia: ${formattedDate}</p>
+                                    <p class="card-time">Hora: ${eventDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                                    <p class="card-text">Promoção: ${evento.promocao}</p>
+                                    <p class="card-text">Regra: ${evento.regra}</p>
+                            `;
 
-                            // Se a chave "link" não estiver vazia, crie um botão com o link
-                            const button = document.createElement("a");
-                            button.href = evento.link;
-                            button.target = "_blank"; // Para abrir o link em uma nova aba
-                            button.className = "btn btn-primary w-100";
-                            button.innerText = "Ver detalhes";
-                            card.querySelector(".card-body").appendChild(button);
+                            if (evento.link && evento.link.trim() !== "") {
+                                const hr = document.createElement("hr");
+                                card.querySelector(".card-body").appendChild(hr);
+
+                                const button = document.createElement("a");
+                                button.href = evento.link;
+                                button.target = "_blank";
+                                button.className = "btn btn-primary w-100";
+                                button.innerText = "Ver detalhes";
+                                card.querySelector(".card-body").appendChild(button);
+                            }
+
+                            card.innerHTML += `</div>`;
+                            eventCardList.appendChild(card);
                         }
-
-                        card.innerHTML += `</div>`;
-                        eventCardList.appendChild(card);
+                    } catch (error) {
+                        console.error("Erro ao processar evento:", error);
                     }
                 });
             });
@@ -89,3 +91,4 @@ appId: "1:341811259005:web:55cbc721257b0b2ff63314",
     </script>
 </body>
 </html>
+
