@@ -18,6 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
     <script>
         var firebaseConfig = {
@@ -34,6 +35,17 @@
         const db = firebase.firestore();
         const cliente = "inova";
         const eventCardList = document.getElementById("eventCardList");
+
+        // Verifica se o usuário está autenticado.
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                // O usuário está autenticado, portanto, pode realizar operações de gravação.
+                listEvents();
+            } else {
+                // O usuário não está autenticado. Você pode lidar com isso de acordo com seus requisitos.
+                // Por exemplo, redirecione o usuário para a página de login.
+            }
+        });
 
         function listEvents() {
             const eventosRef = db.collection(`${cliente}/eventos`);
@@ -83,8 +95,6 @@
             card.innerHTML += `</div>`;
             return card;
         }
-
-        listEvents();
     </script>
 </body>
 </html>
