@@ -33,68 +33,42 @@
 
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
-        const cliente = "inova";
         const eventCardList = document.getElementById("eventCardList");
 
         // Verifica se o usuário está autenticado.
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
-                // O usuário está autenticado, portanto, pode realizar operações de gravação.
-                listEvents();
+                // O usuário está autenticado.
+                const cliente = "inova";
+                const userID = user.uid; // Obtém o ID do usuário autenticado
+
+                // Constrói o caminho da coleção com base no ID do usuário.
+                const colecaoEventos = `${cliente}/${userID}/eventos`;
+
+                // Agora você pode usar 'colecaoEventos' para acessar a coleção específica do usuário autenticado.
+                const eventosRef = db.collection(colecaoEventos);
+
+                // Função para listar eventos
+                function listEvents() {
+                    eventosRef.where("data", ">=", new Date().toISOString()).orderBy("data").get().then((querySnapshot) => {
+                        eventCardList.innerHTML = "";
+
+                        querySnapshot.forEach((doc) => {
+                            const evento = doc.data();
+                            const card = createEventCard(evento);
+                            eventCardList.appendChild(card);
+                        });
+                    });
+                }
+
+                // Resto do seu código, incluindo a função createEventCard
+
+                listEvents(); // Chama a função para listar eventos
             } else {
                 // O usuário não está autenticado. Você pode lidar com isso de acordo com seus requisitos.
                 // Por exemplo, redirecione o usuário para a página de login.
             }
         });
-
-        function listEvents() {
-            const eventosRef = db.collection(`${cliente}/eventos`);
-            eventosRef.where("data", ">=", new Date().toISOString()).orderBy("data").get().then((querySnapshot) => {
-                eventCardList.innerHTML = "";
-
-                querySnapshot.forEach((doc) => {
-                    const evento = doc.data();
-
-                    const card = createEventCard(evento);
-                    eventCardList.appendChild(card);
-                });
-            });
-        }
-
-        function createEventCard(evento) {
-            const card = document.createElement("div");
-            card.classList.add("card", "col-md-4", "col-sm-6", "mb-4");
-
-            const eventDate = new Date(evento.data);
-            const dayOfWeek = eventDate.toLocaleDateString('pt-BR', { weekday: 'long' });
-            const formattedDate = eventDate.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
-
-            card.innerHTML = `
-                <img src="${evento.foto}" class="card-img-top" alt="Flyer do Evento">
-                <div class="card-body">
-                    <h5 class="card-title">${evento.descricao}</h5>
-                    <p class="card-day">${dayOfWeek}</p>
-                    <p class="card-text">Dia: ${formattedDate}</p>
-                    <p class="card-time">Hora: ${eventDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                    <p class="card-text">Promoção: ${evento.promocao}</p>
-                    <p class="card-text">Regra: ${evento.regra}</p>
-            `;
-
-            if (evento.link && evento.link.trim() !== "") {
-                const hr = document.createElement("hr");
-                card.querySelector(".card-body").appendChild(hr);
-
-                const button = document.createElement("a");
-                button.href = evento.link;
-                button.target = "_blank";
-                button.className = "btn btn-primary w-100";
-                button.innerText = evento.buttonTitle || "Ver detalhes";
-                card.querySelector(".card-body").appendChild(button);
-            }
-
-            card.innerHTML += `</div>`;
-            return card;
-        }
     </script>
 </body>
 </html>
