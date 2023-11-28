@@ -15,50 +15,35 @@
                 <label for="dataEvento" class="form-label">Data do Evento</label>
                 <input type="date" class="form-control" id="dataEvento" required>
             </div>
-            <div class="form-group">
-                <label for="horaEvento" class="form-label">Hora do Evento</label>
-                <input type="time" class="form-control" id="horaEvento" required>
-            </div>
-            <div class="form-group">
-                <label for="fotoEvento" class="form-label">Foto do Flyer</label>
-                <input type="file" class="form-control" id="fotoEvento" accept="image/*" required>
-            </div>
-            <div class="form-group">
-                <label for="descricao" class="form-label">Descrição</label>
-                <textarea class="form-control" id="descricao" rows="4" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="promocao" class="form-label">Promoção</label>
-                <input type="text" class="form-control" id="promocao" required>
-            </div>
-            <div class="form-group">
-                <label for="regra" class="form-label">Regra</label>
-                <input type="text" class="form-control" id="regra" required>
-            </div>
-            <button type="button" class="btn btn-secondary mt-2" id="toggleLink">Adicionar Link e Título</button>
-            <div id="linkAndTitleFields" style="display: none;">
-                <div class="form-group">
-                    <label for="link" class="form-label">Link</label>
-                    <input type="url" class="form-control custom-placeholder" id="link" placeholder="Link do Destino">
-                </div>
-                <div class="form-group">
-                    <label for="buttonTitle" class="form-label">Título do Botão</label>
-                    <input type="text" class="form-control custom-placeholder" id="buttonTitle" placeholder="Título do Botão">
-                </div>
-            </div>
+            <!-- Outros campos do formulário de cadastro de eventos aqui -->
             <button type="submit" class="btn btn-primary mt-2">Cadastrar Evento</button>
         </form>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Botão para alternar a exibição dos campos de link e título -->
+    <button type="button" class="btn btn-secondary mt-2" id="toggleLink">Adicionar Link e Título</button>
+    
+    <!-- Campos de link e título ocultos por padrão -->
+    <div id="linkAndTitleFields" style="display: none;">
+        <div class="form-group">
+            <label for="link" class="form-label">Link</label>
+            <input type="url" class="form-control custom-placeholder" id="link" placeholder="Link do Destino">
+        </div>
+        <div class="form-group">
+            <label for="buttonTitle" class="form-label">Título do Botão</label>
+            <input type="text" class="form-control custom-placeholder" id="buttonTitle" placeholder="Título do Botão">
+        </div>
+    </div>
 
-    <!-- Adicione o módulo firebase-auth -->
+    <!-- Inclua os scripts do Firebase aqui -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
     <script>
+        // Configuração do Firebase com as credenciais fornecidas
         var firebaseConfig = {
             apiKey: "AIzaSyCLEyAd_4-2n2ID0xTjwS1ouip9G9C6JDs",
             authDomain: "blacknight-600de.firebaseapp.com",
@@ -69,14 +54,15 @@
             measurementId: "G-559VYPVJ5Q"
         };
 
+        // Inicialize o Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const storage = firebase.storage();
         const cliente = "inova";
 
-        const eventoForm = document.getElementById("eventoForm");
-        const linkAndTitleFields = document.getElementById("linkAndTitleFields");
+        // Evento para alternar a exibição dos campos de link e título
         const toggleLink = document.getElementById("toggleLink");
+        const linkAndTitleFields = document.getElementById("linkAndTitleFields");
 
         toggleLink.addEventListener("click", function () {
             if (linkAndTitleFields.style.display === "none") {
@@ -85,6 +71,9 @@
                 linkAndTitleFields.style.display = "none";
             }
         });
+
+        // Evento para o formulário de cadastro de eventos
+        const eventoForm = document.getElementById("eventoForm");
 
         eventoForm.addEventListener("submit", async function (e) {
             e.preventDefault();
