@@ -15,24 +15,39 @@
                 <label for="dataEvento" class="form-label">Data do Evento</label>
                 <input type="date" class="form-control" id="dataEvento" required>
             </div>
-            <!-- Outros campos do formulário de cadastro de eventos aqui -->
+            <div class="form-group">
+                <label for="horaEvento" class="form-label">Hora do Evento</label>
+                <input type="time" class="form-control" id="horaEvento" required>
+            </div>
+            <div class="form-group">
+                <label for="fotoEvento" class="form-label">Foto do Flyer</label>
+                <input type="file" class="form-control" id="fotoEvento" accept="image/*" required>
+            </div>
+            <div class="form-group">
+                <label for="descricao" class="form-label">Descrição</label>
+                <textarea class="form-control" id="descricao" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="promocao" class="form-label">Promoção</label>
+                <input type="text" class="form-control" id="promocao" required>
+            </div>
+            <div class="form-group">
+                <label for="regra" class="form-label">Regra</label>
+                <input type="text" class="form-control" id="regra" required>
+            </div>
+            <button type="button" class="btn btn-secondary mt-2" id="toggleLink">Adicionar Link e Título</button>
+            <div id="linkAndTitleFields" style="display: none;">
+                <div class="form-group">
+                    <label for="link" class="form-label">Link</label>
+                    <input type="url" class="form-control custom-placeholder" id="link" placeholder="Link do Destino">
+                </div>
+                <div class="form-group">
+                    <label for="buttonTitle" class="form-label">Título do Botão</label>
+                    <input type="text" class="form-control custom-placeholder" id="buttonTitle" placeholder="Título do Botão">
+                </div>
+            </div>
             <button type="submit" class="btn btn-primary mt-2">Cadastrar Evento</button>
         </form>
-    </div>
-
-    <!-- Botão para alternar a exibição dos campos de link e título -->
-    <button type="button" class="btn btn-secondary mt-2" id="toggleLink">Adicionar Link e Título</button>
-    
-    <!-- Campos de link e título ocultos por padrão -->
-    <div id="linkAndTitleFields" style="display: none;">
-        <div class="form-group">
-            <label for="link" class="form-label">Link</label>
-            <input type="url" class="form-control custom-placeholder" id="link" placeholder="Link do Destino">
-        </div>
-        <div class="form-group">
-            <label for="buttonTitle" class="form-label">Título do Botão</label>
-            <input type="text" class="form-control custom-placeholder" id="buttonTitle" placeholder="Título do Botão">
-        </div>
     </div>
 
     <!-- Inclua os scripts do Firebase aqui -->
