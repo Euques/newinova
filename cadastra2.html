@@ -87,6 +87,13 @@
         eventoForm.addEventListener("submit", async function (e) {
             e.preventDefault();
 
+            // Verificar a autenticação do usuário
+            const user = firebase.auth().currentUser;
+            if (!user) {
+                alert("Usuário não autenticado. Faça o login para cadastrar eventos.");
+                return;
+            }
+
             // Obtenha os valores do formulário
             const dataEvento = document.getElementById("dataEvento").value;
             const horaEvento = document.getElementById("horaEvento").value;
@@ -106,7 +113,7 @@
             const downloadURL = await snapshot.ref.getDownloadURL();
 
             // Salvar os dados do evento no Firebase Firestore
-            const eventosRef = db.collection(`${cliente}`).doc("SEU_DOCUMENTO_ID").collection("eventos");
+            const eventosRef = db.collection(`${cliente}`).doc(user.uid).collection("eventos");
             eventosRef.doc(dataTimestamp.toString()).set({
                 data: dataTimestamp,
                 foto: downloadURL,
