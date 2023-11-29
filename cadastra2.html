@@ -47,8 +47,8 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="clubInonovaCheckbox" class="form-label">Club Inonova</label>
-                <input type="checkbox" class="form-check-input" id="clubInonovaCheckbox">
+                <label for="clubCheckbox" class="form-label">Club Inonova</label>
+                <input type="checkbox" class="form-check-input" id="clubCheckbox">
             </div>
             <button type="submit" class="btn btn-primary mt-2">Cadastrar Evento</button>
         </form>
@@ -86,7 +86,7 @@
             const regra = document.getElementById("regra").value;
             const link = document.getElementById("link").value;
             const buttonTitle = document.getElementById("buttonTitle").value;
-            const clubInonova = document.getElementById("clubInonovaCheckbox").checked;
+            const club = document.getElementById("clubCheckbox").checked;
 
             const dataTimestamp = new Date(`${dataEvento}T${horaEvento}:00`).getTime();
 
@@ -103,7 +103,7 @@
                 regra: regra,
                 link: link,
                 buttonTitle: buttonTitle,
-                clubInonova: clubInonova
+                club: club
             })
             .then(function () {
                 alert("Evento cadastrado com sucesso!");
