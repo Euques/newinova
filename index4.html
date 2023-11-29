@@ -46,7 +46,7 @@
                     const eventDateTime = new Date(evento.data);
                     const eventDateTimePlus7Hours = new Date(eventDateTime.getTime() + 7 * 60 * 60 * 1000); // Adiciona 7 horas
 
-                    if (eventDateTimePlus7Hours >= new Date() && evento.inova === false) { // Compara com a data e hora atuais e verifica se a chave "inova" é false
+                    if (eventDateTimePlus7Hours >= new Date() && evento.club === false) { // Compara com a data e hora atuais e verifica se a chave "club" é false
                         const card = createEventCard(evento);
                         eventCardList.appendChild(card);
                     }
