@@ -256,25 +256,25 @@
                 );
             } else {
                 // Se nenhuma nova imagem for selecionada, apenas atualize os outros campos
-                eventoRef.update({
-                    data: dataTimestamp,
-                    descricao: descricao,
-                    promocao: promocao,
-                    regra: regra,
-                    link: link,
-                    buttonTitle: buttonTitle,
-                    club: club // Atualize o valor do nó "club" no Firebase
-                })
-                .then(function () {
-                    alert("Evento atualizado com sucesso!");
-                    // Limpar campos após a atualização
-                    document.getElementById("selectEvento").value = "";
-                    selectEvent();
-                    location.reload();
-                })
-                .catch(function (error) {
-                    alert("Erro ao atualizar o evento: " + error.message);
-                });
+              eventoRef.update({
+  data: dataTimestamp,
+  descricao: descricao,
+  promocao: promocao,
+  regra: regra,
+  link: link,
+  buttonTitle: buttonTitle,
+  foto: downloadURL,
+  club: club // Atualize o valor do nó "club" no Firebase
+})
+.then(function () {
+  alert("Evento atualizado com sucesso!");
+  // Limpar campos após a atualização
+  document.getElementById("selectEvento").value = "";
+  selectEvent();
+})
+.catch(function (error) {
+  alert("Erro ao atualizar o evento: " + error.message);
+});
             }
         });
     </script>
