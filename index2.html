@@ -70,7 +70,7 @@
                     <p class="card-text">Dia: ${formattedDate}</p>
                     <p class="card-time">Hora: ${eventDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                     <p class="card-text">Promoção: ${evento.promocao}</p>
-                    <p class="card-text">Regra: ${evento.regra}</p>
+                    <p class="card-text"> ${evento.regra}</p>
             `;
 
             if (evento.link && evento.link.trim() !== "") {
