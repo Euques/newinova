@@ -65,7 +65,7 @@
                 <input type="text" class="form-control" id="buttonTitle">
             </div>
             <div class="form-group">
-                <label for="club" class="form-label">Clube:</label>
+                <label for="club" class="form-label"></label>
                 <input type="checkbox" class="form-check-input" id="club" name="club">
                 <label for="club" class="form-check-label">Club de Clientes</label>
             </div>
@@ -120,7 +120,6 @@
                 option.appendChild(eventImage);
             });
 
-            eventosRef.on("child_changed",
             eventosRef.on("child_changed", function (snapshot) {
                 // Atualizar o evento selecionado
                 selectEvent();
@@ -138,7 +137,7 @@
 
         // Função para preencher os campos de edição com os detalhes do evento selecionado
         function selectEvent() {
-            var selectedEventId = document.getElementById("selectEvento").value;
+                        var selectedEventId = document.getElementById("selectEvento").value;
             var dataEventoField = document.getElementById("dataEvento");
             var horaEventoField = document.getElementById("horaEvento");
             var descricaoField = document.getElementById("descricao");
@@ -228,55 +227,54 @@
                         alert("Erro ao fazer upload da nova imagem: " + error.message);
                     },
                     function () {
-  // Upload bem-sucedido, obtenha a URL da imagem
-  uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-    // Atualize o link da imagem no Firebase Realtime Database
-    eventoRef.update({
-      data: dataTimestamp,
-      descricao: descricao,
-      promocao: promocao,
-      regra: regra,
-      link: link,
-      buttonTitle: buttonTitle,
-      foto: downloadURL,
-      club: club // Atualize o valor do nó "club" no Firebase
-    })
-    .then(function () {
-      alert("Evento atualizado com sucesso!");
-      // Limpar campos após a atualização
-      document.getElementById("selectEvento").value = "";
-      selectEvent();
-    })
-    .catch(function (error) {
-      alert("Erro ao atualizar o evento: " + error.message);
-    });
-  });
-}
-
+                        // Upload bem-sucedido, obtenha a URL da imagem
+                        uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                            // Atualize o link da imagem no Firebase Realtime Database
+                            eventoRef.update({
+                                data: dataTimestamp,
+                                descricao: descricao,
+                                promocao: promocao,
+                                regra: regra,
+                                link: link,
+                                buttonTitle: buttonTitle,
+                                foto: downloadURL,
+                                club: club // Atualize o valor do nó "club" no Firebase
+                            })
+                            .then(function () {
+                                alert("Evento atualizado com sucesso!");
+                                // Limpar campos após a atualização
+                                document.getElementById("selectEvento").value = "";
+                                selectEvent();
+                            })
+                            .catch(function (error) {
+                                alert("Erro ao atualizar o evento: " + error.message);
+                            });
+                        });
+                    }
                 );
             } else {
                 // Se nenhuma nova imagem for selecionada, apenas atualize os outros campos
-              eventoRef.update({
-  data: dataTimestamp,
-  descricao: descricao,
-  promocao: promocao,
-  regra: regra,
-  link: link,
-  buttonTitle: buttonTitle,
-  foto: downloadURL,
-  club: club // Atualize o valor do nó "club" no Firebase
-})
-.then(function () {
-  alert("Evento atualizado com sucesso!");
-  // Limpar campos após a atualização
-  document.getElementById("selectEvento").value = "";
-  selectEvent();
-})
-.catch(function (error) {
-  alert("Erro ao atualizar o evento: " + error.message);
-});
+                eventoRef.update({
+                    data: dataTimestamp,
+                    descricao: descricao,
+                    promocao: promocao,
+                    regra: regra,
+                    link: link,
+                    buttonTitle: buttonTitle,
+                    club: club // Atualize o valor do nó "club" no Firebase
+                })
+                .then(function () {
+                    alert("Evento atualizado com sucesso!");
+                    // Limpar campos após a atualização
+                    document.getElementById("selectEvento").value = "";
+                    selectEvent();
+                })
+                .catch(function (error) {
+                    alert("Erro ao atualizar o evento: " + error.message);
+                });
             }
         });
     </script>
 </body>
 </html>
+
