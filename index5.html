@@ -58,7 +58,7 @@
                 <div class="card-body">
                     <h5 class="card-title">${evento.descricao}</h5>
                     <p class="card-text">Data: ${evento.data}</p>
-                    <p class="card-text">Hora: ${evento.hora}</p>
+                    <p class="card-text">Hora: ${evento.hora || "Indefinida"}</p>
                     <p class="card-text">Promoção: ${evento.promocao}</p>
                     <p class="card-text">${evento.regra}</p>
             `;
