@@ -53,12 +53,16 @@
             const card = document.createElement("div");
             card.classList.add("card", "col-md-4", "col-sm-6", "mb-4");
 
+            const eventDate = new Date(evento.data);
+            const dayOfWeek = eventDate.toLocaleDateString('pt-BR', { weekday: 'long' });
+            const formattedDate = eventDate.toLocaleDateString('pt-BR', { day: 'numeric', month: 'short' });
+            const formattedTime = eventDate.toLocaleTimeString([], { hour: 'numeric', minute: 'numeric' });
+
             card.innerHTML = `
                 <img src="${evento.foto}" class="card-img-top" alt="Flyer do Evento">
                 <div class="card-body">
                     <h5 class="card-title">${evento.descricao}</h5>
-                    <p class="card-text">Data: ${evento.data}</p>
-                    <p class="card-text">Hora: ${evento.hora || "Indefinida"}</p>
+                    <p class="card-text">${dayOfWeek.toUpperCase()} ${formattedDate.toUpperCase()} ${formattedTime}</p>
                     <p class="card-text">Promoção: ${evento.promocao}</p>
                     <p class="card-text">${evento.regra}</p>
             `;
